@@ -1,0 +1,34 @@
+- clone the Run3Analysisvalidation repo from https://github.com/AliceO2Group/Run3Analysisvalidation.git
+- go to the codeHF directory
+
+-> config_input.sh
+INPUT_CASE=15 -> you can create a new dataset with number 15, or use existing one and just change the path to data (shown below)
+NFILESMAX=	1 -> for a simple test
+			-0 -> to run over the whole sample
+NFILESPERJOB_O2 = 1 -> for a simple test
+				 = 3[4] -> to run over the whole sample
+
+15)  -> in case we are adding a new dataset (I copied this from dataset 10))
+	INPUT_LABEL=“Run 5, p-p MC 14 TeV bbar-enriched, HF analysis”
+	INPUT_DIR=“/home/mmazzill/pp14TeV_bbbar_10M_2T_13102021”
+	INPUT_FILES=”AODRun5.*.root”
+	JSON=”$JSONRUN5_HF”
+	ISINPUTO2=1
+	ISALICE3=1
+	ISMC=1;;
+
+-> config_tasks.sh
+Enable/disable the creator/selector/tasks u want e.g.
+	DOO2_TASK_D0=0
+
+The same for the cuts e.g.
+	APPLYCUTS_LC=1
+
+-> dpl-config_run5_hf.json
+Here we just add configuration parameters for given tasks e.g. selection criteria (check the tables)
+
+Running the new task
+Once everything is set, you just run command below within Run3Analysisvalidation/codeHF:
+	bash runtest.sh
+The output is in the same directory under the name AnalysisResults_O2.root. 
+If you run more jobs, there is also output_o2 directory, where you can find more detailed logs of each run.
